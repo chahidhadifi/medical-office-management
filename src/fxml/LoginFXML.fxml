@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -17,17 +18,17 @@
                 <Image url="@../images/icons8_XING_100px.png" />
             </image>
         </ImageView>
-          <TextField fx:id="txtUsername" layoutX="102.0" layoutY="194.0" prefHeight="52.0" prefWidth="283.0" promptText="Email address">
+          <TextField fx:id="txtUsername" layoutX="142.0" layoutY="193.0" prefHeight="52.0" prefWidth="234.0" promptText="Email address">
          <font>
             <Font name="Consolas" size="13.0" />
          </font>
       </TextField>
-          <PasswordField fx:id="txtPassword" layoutX="103.0" layoutY="267.0" prefHeight="52.0" prefWidth="283.0" promptText="Password">
+          <PasswordField fx:id="txtPassword" layoutX="142.0" layoutY="267.0" prefHeight="52.0" prefWidth="233.0" promptText="Password">
          <font>
             <Font name="Consolas" size="13.0" />
          </font>
       </PasswordField>
-          <Button fx:id="btnSignin" layoutX="103.0" layoutY="359.0" mnemonicParsing="false" onMouseClicked="#loginButton" prefHeight="62.0" prefWidth="283.0" text="Submit">
+          <Button fx:id="btnSignin" layoutX="149.0" layoutY="372.0" mnemonicParsing="false" onMouseClicked="#loginButton" prefHeight="62.0" prefWidth="196.0" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Submit">
          <font>
             <Font name="Consolas" size="14.0" />
          </font>
@@ -37,17 +38,17 @@
                   <Font name="Consolas" size="13.0" />
               </font>
           </Label>
-      <Label layoutX="198.0" layoutY="100.0" text="Sign in">
+      <Label layoutX="199.0" layoutY="96.0" text="Sign in">
          <font>
             <Font name="Consolas" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="133.0" layoutY="456.0" text="Don't have an account?">
+      <Label layoutX="135.0" layoutY="467.0" text="Don't have an account?">
          <font>
             <Font name="Consolas" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="303.0" layoutY="456.0" onMouseClicked="#registerButton" styleClass="bg-default" stylesheets="@../css/cupertino-dark.css" text="Sign up" underline="true">
+      <Label layoutX="305.0" layoutY="467.0" onMouseClicked="#registerButton" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Sign up" underline="true">
          <font>
             <Font name="Consolas" size="13.0" />
          </font>
@@ -55,5 +56,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
+      <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="101.0" layoutY="229.0" selectionFill="BLACK" size="30" />
+      <FontAwesomeIconView fill="WHITE" glyphName="LOCK" layoutX="102.0" layoutY="303.0" selectionFill="BLACK" size="30" />
     </children>
 </AnchorPane>
