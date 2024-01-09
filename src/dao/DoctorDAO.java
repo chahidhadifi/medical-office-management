@@ -25,14 +25,14 @@ public class DoctorDAO {
     public static boolean create(Doctor doctor) {
         try {
             Connection con = ConnectionDB.conDB();
-            String query = "insert into doctor(id, firstname, lastname, email, gender, specialite) values (?, ?, ?, ?, ?, ?)";
+            String query = "insert into doctor(id, firstname, lastname, email, gender, speciality) values (?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, doctor.getId());
-            ps.setString(2, patient.getFirstname());
-            ps.setString(3, patient.getLastname());
-            ps.setString(4, patient.getEmail());
-            ps.setString(5, patient.getGender());
-            ps.setString(6, patient.getBloodType());
+            ps.setString(2, doctor.getFirstname());
+            ps.setString(3, doctor.getLastname());
+            ps.setString(4, doctor.getEmail());
+            ps.setString(5, doctor.getGender());
+            ps.setString(6, doctor.getSpeciality());
             int rowAffected = ps.executeUpdate();
             return rowAffected > 0;
         } catch(SQLException e) {
@@ -44,13 +44,13 @@ public class DoctorDAO {
     public static boolean update(Doctor doctor) {
         try {
             Connection con = ConnectionDB.conDB();
-            String query = "update doctor set firstname=?, lastname=?, email=?, gender=?, bloodtype=? where id=?";
+            String query = "update doctor set firstname=?, lastname=?, email=?, gender=?, speciality=? where id=?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, doctor.getFirstname());
             ps.setString(2, doctor.getLastname());
             ps.setString(3, doctor.getEmail());
             ps.setString(4, doctor.getGender());
-            ps.setString(5, doctor.getSpecialite());
+            ps.setString(5, doctor.getSpeciality());
             ps.setInt(6, doctor.getId());
             int rowAffected = ps.executeUpdate();
             return rowAffected > 0;
@@ -85,7 +85,7 @@ public class DoctorDAO {
             rs = st.executeQuery(query);
             Doctor doctor;
             while (rs.next()) {
-               doctor = new Doctor(rs.getInt("id"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"), rs.getString("gender"), rs.getString("bloodtype"));
+               doctor = new Doctor(rs.getInt("id"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"), rs.getString("gender"), rs.getString("speciality"));
                doctorList.add(doctor);
             }
         } catch(SQLException e) {
