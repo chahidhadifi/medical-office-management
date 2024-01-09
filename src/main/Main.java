@@ -21,26 +21,11 @@ public class Main extends Application {
         Application.setUserAgentStylesheet("/css/cupertino-dark.css");
         stage.initStyle(StageStyle.DECORATED);
         stage.setMaximized(false);
-
-        root.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                xOffset = event.getSceneX();
-                yOffset = event.getSceneY();
-            }
-        });
-
-        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                stage.setX(event.getScreenX() - xOffset);
-                stage.setY(event.getScreenY() - yOffset);
-            }
-        });
-
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Medical office management");
+        stage.setMinWidth(489);
+        stage.setMinHeight(585);
+        stage.initStyle(StageStyle.DECORATED.UNDECORATED);
         stage.show();
     }
 

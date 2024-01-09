@@ -1,12 +1,22 @@
 package model;
 
-public class Admin {
-    
-    private String username, email, password;
+import utils.PersonalInformations;
+import utils.IdGenerator;
 
-    public Admin(String username, String email, String password) {
+public class Admin extends PersonalInformations {
+    
+    private String username;
+    private String password;
+    
+    public Admin(String firstname, String lastname, String email, String password, String username) {
+        super(IdGenerator.getAdminId(), firstname, lastname, email);
         this.username = username;
-        this.email = email;
+        this.password = password;
+    }
+    
+    public Admin(int id, String firstname, String lastname, String email, String password, String username) {
+        super(id, firstname, lastname, email);
+        this.username = username;
         this.password = password;
     }
 
@@ -16,14 +26,6 @@ public class Admin {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {
@@ -36,7 +38,7 @@ public class Admin {
 
     @Override
     public String toString() {
-        return "Admin{" + "username=" + username + ", email=" + email + ", password=" + password + '}';
+        return "Admin{" + "username=" + username + ", password=" + password + '}';
     }
-
+    
 }

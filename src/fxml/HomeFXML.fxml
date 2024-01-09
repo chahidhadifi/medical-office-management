@@ -1,8 +1,283 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="570.0" prefWidth="860.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21">
-    
+<AnchorPane id="AnchorPane" prefHeight="514.0" prefWidth="882.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
+   <children>
+      <SplitPane dividerPositions="0.29797979797979796" prefHeight="603.0" prefWidth="882.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="237.0" styleClass="menu-bar" stylesheets="@../css/cupertino-dark.css">
+               <children>
+                  <Button layoutX="61.0" layoutY="523.0" mnemonicParsing="false" onMouseClicked="#logoutButton" prefHeight="43.0" prefWidth="136.0" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Logout">
+                     <font>
+                        <Font name="Consolas" size="13.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="18" />
+                     </graphic>
+                  </Button>
+                  <ImageView fitHeight="119.0" fitWidth="159.0" layoutX="72.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/logo.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="btnDashboard" layoutX="47.0" layoutY="171.0" mnemonicParsing="false" onMouseClicked="#showDashboard" prefHeight="43.0" prefWidth="166.0" text="Dashboard">
+                     <font>
+                        <Font name="Consolas" size="13.0" />
+                     </font>
+                  </Button>
+                  <FontAwesomeIconView fill="WHITE" glyphName="BAR_CHART" layoutX="59.0" layoutY="199.0" size="18" />
+                  <Button fx:id="btnPatients" layoutX="46.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#showPatients" prefHeight="43.0" prefWidth="166.0" text="Patients">
+                     <font>
+                        <Font name="Consolas" size="13.0" />
+                     </font>
+                  </Button>
+                  <FontAwesomeIconView fill="WHITE" glyphName="HOTEL" layoutX="61.0" layoutY="256.0" size="18" />
+                  <Button fx:id="btnDoctors" layoutX="46.0" layoutY="287.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="166.0" text="Doctors">
+                     <font>
+                        <Font name="Consolas" size="13.0" />
+                     </font>
+                  </Button>
+                  <FontAwesomeIconView fill="WHITE" glyphName="STETHOSCOPE" layoutX="62.0" layoutY="315.0" size="18" />
+                  <Button fx:id="btnAccounts" layoutX="47.0" layoutY="345.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="166.0" text="Accounts">
+                     <font>
+                        <Font name="Consolas" size="13.0" />
+                     </font>
+                  </Button>
+                  <FontAwesomeIconView fill="WHITE" glyphName="USERS" layoutX="61.0" layoutY="373.0" size="18" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="464.0" prefWidth="606.0">
+               <children>
+                  <AnchorPane fx:id="dashboardView" prefHeight="602.0" prefWidth="616.0">
+                     <children>
+                        <Label layoutX="74.0" layoutY="29.0" stylesheets="@../css/cupertino-dark.css" text="Dashboard">
+                           <font>
+                              <Font name="Consolas" size="18.0" />
+                           </font>
+                        </Label>
+                        <FontAwesomeIconView fill="WHITE" glyphName="BAR_CHART" layoutX="37.0" layoutY="48.0" size="23" />
+                        <AnchorPane layoutX="37.0" layoutY="122.0" prefHeight="98.0" prefWidth="236.0" styleClass="bg-accent-emphasis" stylesheets="@../css/cupertino-dark.css">
+                           <children>
+                              <Label layoutX="59.0" layoutY="19.0" text="Number of patients">
+                                 <font>
+                                    <Font name="Consolas" size="14.0" />
+                                 </font>
+                              </Label>
+                              <FontAwesomeIconView fill="WHITE" glyphName="HOTEL" layoutX="14.0" layoutY="39.0" size="30" />
+                              <Label fx:id="lblNbrPatients" layoutX="172.0" layoutY="43.0" text="20">
+                                 <font>
+                                    <Font name="Consolas" size="36.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="37.0" layoutY="243.0" prefHeight="98.0" prefWidth="236.0" styleClass="bg-accent-emphasis" stylesheets="@../css/cupertino-dark.css">
+                           <children>
+                              <Label layoutX="60.0" layoutY="20.0" text="Number of doctors">
+                                 <font>
+                                    <Font name="Consolas" size="14.0" />
+                                 </font>
+                              </Label>
+                              <FontAwesomeIconView fill="WHITE" glyphName="STETHOSCOPE" layoutX="20.0" layoutY="39.0" size="30" />
+                              <Label fx:id="lblNbrDoctors" layoutX="171.0" layoutY="43.0" text="20">
+                                 <font>
+                                    <Font name="Consolas" size="36.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="37.0" layoutY="369.0" prefHeight="98.0" prefWidth="236.0" styleClass="bg-accent-emphasis" stylesheets="@../css/cupertino-dark.css">
+                           <children>
+                              <Label layoutX="57.0" layoutY="19.0" prefHeight="18.0" prefWidth="149.0" text="Number of accounts">
+                                 <font>
+                                    <Font name="Consolas" size="14.0" />
+                                 </font>
+                              </Label>
+                              <FontAwesomeIconView fill="WHITE" glyphName="USERS" layoutX="14.0" layoutY="39.0" size="30" />
+                              <Label fx:id="lblNbrAccounts" layoutX="167.0" layoutY="43.0" text="20">
+                                 <font>
+                                    <Font name="Consolas" size="36.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="318.0" layoutY="122.0" prefHeight="345.0" prefWidth="271.0" styleClass="bg-accent-emphasis" stylesheets="@../css/cupertino-dark.css">
+                           <children>
+                              <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="103.0" layoutY="100.0" size="90" />
+                              <Label layoutX="51.0" layoutY="146.0" text="ID">
+                                 <font>
+                                    <Font name="Consolas" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="51.0" layoutY="181.0" text="First name">
+                                 <font>
+                                    <Font name="Consolas" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="51.0" layoutY="219.0" text="Last name">
+                                 <font>
+                                    <Font name="Consolas" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="51.0" layoutY="258.0" text="User name">
+                                 <font>
+                                    <Font name="Consolas" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblId" layoutX="185.0" layoutY="146.0" text="123">
+                                 <font>
+                                    <Font name="Consolas" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblFirstname" layoutX="174.0" layoutY="181.0" text="Chahid">
+                                 <font>
+                                    <Font name="Consolas" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblLastname" layoutX="174.0" layoutY="219.0" text="Hadifi">
+                                 <font>
+                                    <Font name="Consolas" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblUsername" layoutX="177.0" layoutY="258.0" text="Admin">
+                                 <font>
+                                    <Font name="Consolas" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <Button layoutX="574.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#closeButton" stylesheets="@../css/cupertino-dark.css" text="Button">
+                           <styleClass>
+                              <String fx:value="button-icon" />
+                              <String fx:value="flat" />
+                           </styleClass>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="20" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="PatientsView" prefHeight="602.0" prefWidth="622.0" visible="false">
+                     <children>
+                        <Label layoutX="69.0" layoutY="23.0" stylesheets="@../css/cupertino-dark.css" text="Patients">
+                           <font>
+                              <Font name="Consolas" size="18.0" />
+                           </font>
+                        </Label>
+                        <FontAwesomeIconView fill="WHITE" glyphName="HOTEL" layoutX="28.0" layoutY="43.0" size="23" />
+                        <TableView fx:id="tablePatients" layoutX="32.0" layoutY="103.0" prefHeight="216.0" prefWidth="558.0">
+                          <columns>
+                            <TableColumn fx:id="coId" prefWidth="33.60003662109375" text="ID" />
+                            <TableColumn fx:id="coFirstname" prefWidth="116.79998016357422" text="First name" />
+                              <TableColumn fx:id="coLastname" prefWidth="121.59994506835938" text="Last name" />
+                              <TableColumn fx:id="coEmail" prefWidth="133.5999755859375" text="Email" />
+                              <TableColumn fx:id="coGender" prefWidth="67.2000732421875" text="Gender" />
+                              <TableColumn fx:id="coBloodType" prefWidth="86.40005493164062" text="Blood type" />
+                          </columns>
+                        </TableView>
+                        <TextField fx:id="txtSearch" layoutX="314.0" layoutY="64.0" prefHeight="32.0" prefWidth="166.0" promptText="Search by ID">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                        </TextField>
+                        <Button layoutX="487.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#btnSearch" prefHeight="32.0" prefWidth="103.0" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Search">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="19" />
+                           </graphic>
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font></Button>
+                        <TextField fx:id="txtFirstname" layoutX="32.0" layoutY="348.0" prefHeight="30.0" prefWidth="230.0" promptText="First name">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="txtLastname" layoutX="32.0" layoutY="389.0" prefHeight="30.0" prefWidth="230.0" promptText="Last name">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="txtEmail" layoutX="33.0" layoutY="431.0" prefHeight="30.0" prefWidth="230.0" promptText="Email">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                        </TextField>
+                        <Button layoutX="345.0" layoutY="351.0" mnemonicParsing="false" onMouseClicked="#createPatient" prefHeight="43.0" prefWidth="230.0" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Add new patient">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS_SQUARE" size="19" />
+                           </graphic>
+                        </Button>
+                        <Button layoutX="345.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#updatePatient" prefHeight="43.0" prefWidth="230.0" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Update patient">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="REFRESH" size="19" />
+                           </graphic>
+                        </Button>
+                        <Button layoutX="345.0" layoutY="449.0" mnemonicParsing="false" onMouseClicked="#deletePatient" prefHeight="43.0" prefWidth="230.0" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Delete patient">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="19" />
+                           </graphic>
+                        </Button>
+                        <Button layoutX="345.0" layoutY="497.0" mnemonicParsing="false" onMouseClicked="#printAllPatients" prefHeight="43.0" prefWidth="230.0" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Print all patients">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="PRINT" size="19" />
+                           </graphic>
+                        </Button>
+                        <ComboBox fx:id="comboSortBy" layoutX="33.0" layoutY="64.0" prefHeight="30.0" prefWidth="116.0" promptText="Sort by" />
+                        <Button layoutX="576.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#closeButton" stylesheets="@../css/cupertino-dark.css" text="Button">
+                           <styleClass>
+                              <String fx:value="button-icon" />
+                              <String fx:value="flat" />
+                           </styleClass>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="20" />
+                           </graphic>
+                        </Button>
+                        <ComboBox fx:id="comboBloodType" layoutX="32.0" layoutY="513.0" prefHeight="26.0" prefWidth="230.0" promptText="Blood type" />
+                        <ComboBox fx:id="comboGender" layoutX="33.0" layoutY="475.0" prefHeight="26.0" prefWidth="230.0" promptText="Gender" />
+                        <Label fx:id="lblErrors" layoutX="33.0" layoutY="558.0" prefHeight="18.0" prefWidth="304.0">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="158.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#btnSort" prefHeight="32.0" prefWidth="103.0" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Sort">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="SORT_ALPHA_ASC" size="19" />
+                           </graphic>
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="doctorsView" prefHeight="610.0" prefWidth="622.0" visible="false" />
+                  <AnchorPane fx:id="accountsView" prefHeight="610.0" prefWidth="622.0" visible="false" />
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
 </AnchorPane>

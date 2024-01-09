@@ -666,6 +666,8 @@ Text {
   -fx-text-fill: -color-fg-default;
   -fx-alignment: CENTER;
   -fx-content-display: LEFT;
+  -fx-font-family: Consolas;
+  -fx-font-size: 13px;
 }
 .combo-box-base:disabled {
   -fx-opacity: 0.4;
@@ -971,6 +973,8 @@ Text {
   -fx-border-radius: 0;
   -color-header-bg: -color-bg-default;
   -color-header-fg: -color-fg-muted;
+  -fx-font-family: Consolas;
+  -fx-font-size: 13px;
 }
 .table-view > .virtual-flow > .corner {
   -fx-background-color: -color-cell-border;

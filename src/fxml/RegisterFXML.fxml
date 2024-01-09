@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -11,27 +12,37 @@
 
 <AnchorPane id="AnchorPane" prefHeight="577.0" prefWidth="489.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterController">
     <children>
-      <TextField fx:id="txtUsername" layoutX="131.0" layoutY="130.0" prefHeight="52.0" prefWidth="254.0" promptText="Username">
+      <TextField fx:id="txtFirstname" layoutX="136.0" layoutY="127.0" prefHeight="36.0" prefWidth="254.0" promptText="First name">
          <font>
             <Font name="Consolas" size="13.0" />
          </font>
       </TextField>
-          <TextField fx:id="txtEmail" layoutX="132.0" layoutY="202.0" prefHeight="52.0" prefWidth="254.0" promptText="Email address">
+      <TextField fx:id="txtLastname" layoutX="136.0" layoutY="176.0" prefHeight="36.0" prefWidth="254.0" promptText="Last name">
          <font>
             <Font name="Consolas" size="13.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="txtPassword" layoutX="132.0" layoutY="273.0" prefHeight="52.0" prefWidth="254.0" promptText="Password">
+      <TextField fx:id="txtUsername" layoutX="136.0" layoutY="224.0" prefHeight="36.0" prefWidth="254.0" promptText="Username">
+         <font>
+            <Font name="Consolas" size="13.0" />
+         </font>
+      </TextField>
+          <TextField fx:id="txtEmail" layoutX="136.0" layoutY="273.0" prefHeight="36.0" prefWidth="254.0" promptText="Email address">
+         <font>
+            <Font name="Consolas" size="13.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="txtPassword" layoutX="136.0" layoutY="323.0" prefHeight="36.0" prefWidth="254.0" promptText="Password">
          <font>
             <Font name="Consolas" size="13.0" />
          </font>
       </PasswordField>
-          <Label fx:id="lblErrors" alignment="CENTER" layoutX="107.0" layoutY="334.0" prefHeight="23.0" prefWidth="275.0" textFill="#ff6354">
+          <Label fx:id="lblErrors" alignment="CENTER" layoutX="107.0" layoutY="377.0" prefHeight="23.0" prefWidth="275.0" textFill="#ff6354">
               <font>
                   <Font name="Consolas" size="13.0" />
               </font>
           </Label>
-      <Label layoutX="126.0" layoutY="465.0" text="Already have an account?">
+      <Label layoutX="135.0" layoutY="488.0" text="Already have an account?">
          <font>
             <Font name="Consolas" size="13.0" />
          </font>
@@ -41,12 +52,12 @@
             <Font name="Consolas" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="153.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#submitButton" prefHeight="59.0" prefWidth="181.0" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Submit">
+      <Button layoutX="173.0" layoutY="422.0" mnemonicParsing="false" onMouseClicked="#submitButton" prefHeight="46.0" prefWidth="142.0" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Submit">
          <font>
             <Font name="Consolas" size="14.0" />
          </font>
       </Button>
-      <Label layoutX="311.0" layoutY="465.0" onMouseClicked="#loginButton" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Sign in" underline="true">
+      <Label layoutX="320.0" layoutY="488.0" onMouseClicked="#loginButton" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Sign in" underline="true">
          <font>
             <Font name="Consolas" size="13.0" />
          </font>
@@ -54,8 +65,19 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="91.0" layoutY="166.0" size="30" />
-      <FontAwesomeIconView fill="WHITE" glyphName="ADDRESS_CARD" layoutX="84.0" layoutY="238.0" size="30" />
-      <FontAwesomeIconView fill="WHITE" glyphName="LOCK" layoutX="91.0" layoutY="309.0" size="30" />
+      <FontAwesomeIconView fill="WHITE" glyphName="COPY" layoutX="100.0" layoutY="204.0" size="25" text="" />
+      <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="103.0" layoutY="250.0" size="25" />
+      <FontAwesomeIconView fill="WHITE" glyphName="ADDRESS_CARD" layoutX="98.0" layoutY="300.0" size="25" />
+      <FontAwesomeIconView fill="WHITE" glyphName="LOCK" layoutX="103.0" layoutY="349.0" size="25" />
+      <FontAwesomeIconView fill="WHITE" glyphName="COPY" layoutX="100.0" layoutY="155.0" size="25" />
+      <Button layoutX="446.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#closeButton" stylesheets="@../css/cupertino-dark.css" text="Button">
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="20" />
+         </graphic>
+         <styleClass>
+            <String fx:value="button-icon" />
+            <String fx:value="flat" />
+         </styleClass>
+      </Button>
     </children>
 </AnchorPane>

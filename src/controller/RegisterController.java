@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import java.io.IOException;
@@ -17,57 +13,53 @@ import java.sql.SQLException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
+
 import model.Admin;
+import dao.AdminDAO;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+import utils.InputValidator;
 
-/**
- *
- * @author hp
- */
 public class RegisterController {
-
+    
+    @FXML
+    private TextField txtFirstname;
+    @FXML
+    private TextField txtLastname;
+    @FXML
+    private TextField txtUsername;
     @FXML
     private TextField txtEmail;
     @FXML
     private PasswordField txtPassword;
     @FXML
     private Label lblErrors;
-    @FXML
-    private TextField txtUsername;
+    
+    Stage stage;
 
     @FXML
     private void submitButton(MouseEvent event) {
+        String firstname = txtFirstname.getText();
+        String lastname = txtLastname.getText();
         String username = txtUsername.getText();
         String email = txtEmail.getText();
         String password = txtPassword.getText();
-
-        if (isValidInput(username, email, password)) {
-            Admin admin = new Admin(username, email, password);
-            Boolean registrationState = registerAdmin(admin);
+        if (InputValidator.isValidInputRegistration(firstname, lastname, username, email, password)) {
+            Admin admin = new Admin(firstname, lastname, email, password, username);
+            Boolean registrationState = AdminDAO.create(admin);
             if (registrationState) {
                 setLblError(Color.LIMEGREEN, "Registration successful!");
+                emptyLblAfterDelay();
             } else {
-                setLblError(Color.TOMATO, email);
+                setLblError(Color.TOMATO, "Registration failed, Please try again.");
+                emptyLblAfterDelay();
             }
         } else {
             setLblError(Color.TOMATO, "Registration failed. Please try again.");
+            emptyLblAfterDelay();
         }
-    }
-    
-    private boolean isValidInput(String username, String email, String password) {
-        return isValidUsername(username) && isValidEmail(email) && isValidPassword(password);
-    }
-
-    private boolean isValidUsername(String username) {
-        return !username.isEmpty();
-    }
-
-    private boolean isValidEmail(String email) {
-        return email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}");
-    }
-
-    private boolean isValidPassword(String password) {
-        return password.length() >= 6;
     }
 
     @FXML
@@ -80,26 +72,22 @@ public class RegisterController {
         stage.show();
     }
     
+    @FXML
+    public void closeButton(MouseEvent event) {
+        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        stage.close();
+    }
+    
     private void setLblError(Color color, String text) {
        lblErrors.setTextFill(color);
        lblErrors.setText(text);
        System.out.println(text);
     }
     
-    private boolean registerAdmin(Admin admin){
-        try {
-            Connection con = utils.ConnectionDB.conDB();
-            String query = "insert into admin(username, email, password) values (?, ?, ?)";
-            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
-            ps.setString(1, admin.getUsername());
-            ps.setString(2, admin.getEmail());
-            ps.setString(3, admin.getPassword());
-            int rowAffected = ps.executeUpdate();
-            return rowAffected > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-   }
+    public void emptyLblAfterDelay() {
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(event -> setLblError(Color.TRANSPARENT, ""));
+        pause.play();
+    }
     
 }
