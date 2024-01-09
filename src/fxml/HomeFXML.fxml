@@ -272,7 +272,7 @@
                         </Button>
                         <ComboBox fx:id="comboBloodType" layoutX="32.0" layoutY="513.0" prefHeight="26.0" prefWidth="230.0" promptText="Blood type" />
                         <ComboBox fx:id="comboGender" layoutX="33.0" layoutY="475.0" prefHeight="26.0" prefWidth="230.0" promptText="Gender" />
-                        <Label fx:id="lblErrors" layoutX="33.0" layoutY="558.0" prefHeight="18.0" prefWidth="304.0">
+                        <Label fx:id="lblErrors" layoutX="33.0" layoutY="558.0" prefHeight="18.0" prefWidth="464.0">
                            <font>
                               <Font name="Consolas" size="13.0" />
                            </font>
@@ -377,7 +377,7 @@
                         </Button>
                         <ComboBox fx:id="comboSpeciality" layoutX="32.0" layoutY="513.0" prefHeight="26.0" prefWidth="230.0" promptText="Speciality" />
                         <ComboBox fx:id="comboGenderDoc" layoutX="33.0" layoutY="475.0" prefHeight="26.0" prefWidth="230.0" promptText="Gender" />
-                        <Label fx:id="lblErrorsDoc" layoutX="33.0" layoutY="558.0" prefHeight="18.0" prefWidth="304.0">
+                        <Label fx:id="lblErrorsDoc" layoutX="33.0" layoutY="558.0" prefHeight="18.0" prefWidth="454.0">
                            <font>
                               <Font name="Consolas" size="13.0" />
                            </font>
@@ -480,7 +480,7 @@
                               <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="20" />
                            </graphic>
                         </Button>
-                        <Label fx:id="lblErrorsAd" layoutX="33.0" layoutY="558.0" prefHeight="18.0" prefWidth="304.0">
+                        <Label fx:id="lblErrorsAd" layoutX="33.0" layoutY="558.0" prefHeight="18.0" prefWidth="464.0">
                            <font>
                               <Font name="Consolas" size="13.0" />
                            </font>

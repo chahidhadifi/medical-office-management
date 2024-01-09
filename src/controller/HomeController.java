@@ -300,8 +300,8 @@ public class HomeController {
             tableDoctors.setItems(searchedDoctorTab);
             txtSearchDoc.setText("");
         } else {
-            setLblError(Color.TOMATO, "Operation failed, Please try again.");
-            emptyLblAfterDelay();
+            setLblErrorDoc(Color.TOMATO, "Operation failed, Please try again.");
+            emptyLblAfterDelayDoc();
         }
     }
     
@@ -326,8 +326,8 @@ public class HomeController {
             tableAdmins.setItems(searchedAdminTab);
             txtSearchAd.setText("");
         } else {
-            setLblError(Color.TOMATO, "Operation failed, Please try again.");
-            emptyLblAfterDelay();
+            setLblErrorAd(Color.TOMATO, "Operation failed, Please try again.");
+            emptyLblAfterDelayAd();
         }
     }
     
@@ -388,8 +388,8 @@ public class HomeController {
             tableDoctors.setItems(sortedList);
             comboSortByDoc.setValue(null);
         } else {
-            setLblError(Color.TOMATO, "Operation failed, Please try again.");
-            emptyLblAfterDelay();
+            setLblErrorDoc(Color.TOMATO, "Operation failed, Please try again.");
+            emptyLblAfterDelayDoc();
         }
     }
     
@@ -417,8 +417,8 @@ public class HomeController {
             tableAdmins.setItems(sortedList);
             comboSortByAd.setValue(null);
         } else {
-            setLblError(Color.TOMATO, "Operation failed, Please try again.");
-            emptyLblAfterDelay();
+            setLblErrorAd(Color.TOMATO, "Operation failed, Please try again.");
+            emptyLblAfterDelayAd();
         }
     }
     
@@ -459,12 +459,12 @@ public class HomeController {
                 clearDoctorFields();
                 readDoctors();
             }  else {
-                setLblError(Color.TOMATO, "Operation failed, Please try again.");
-                emptyLblAfterDelay();
+                setLblErrorDoc(Color.TOMATO, "Operation failed, Please try again.");
+                emptyLblAfterDelayDoc();
             }
         } else {
-            setLblError(Color.TOMATO, "Operation failed, Please try again.");
-            emptyLblAfterDelay();
+            setLblErrorDoc(Color.TOMATO, "Operation failed, Please try again.");
+            emptyLblAfterDelayDoc();
         }
     }
     
@@ -482,12 +482,12 @@ public class HomeController {
                 clearAdminFields();
                 readAdmins();
             }  else {
-                setLblError(Color.TOMATO, "Operation failed, Please try again.");
-                emptyLblAfterDelay();
+                setLblErrorAd(Color.TOMATO, "Operation failed, Please try again.");
+                emptyLblAfterDelayAd();
             }
         } else {
-            setLblError(Color.TOMATO, "Operation failed, Please try again.");
-            emptyLblAfterDelay();
+            setLblErrorAd(Color.TOMATO, "Operation failed, Please try again.");
+            emptyLblAfterDelayAd();
         }
     }
     
@@ -533,14 +533,19 @@ public class HomeController {
         String email = txtEmail.getText();
         String gender = comboGender.getValue();
         String bloodType = comboBloodType.getValue();
-        Patient patient = new Patient(id, firstname, lastname, email, gender, bloodType);
-        Boolean operationState = PatientDAO.update(patient);
-        if (operationState) {
-            clearPatientFields();
-            readPatients();
+        if (InputValidator.isValidInput(firstname, lastname, email, gender, bloodType)) {
+            Patient patient = new Patient(id, firstname, lastname, email, gender, bloodType);
+            Boolean operationState = PatientDAO.update(patient);
+            if (operationState) {
+                clearPatientFields();
+                readPatients();
+            } else {
+                setLblError(Color.TOMATO, "Operation failed, Please try again.");
+                emptyLblAfterDelay();
+            }
         } else {
-            setLblError(Color.TOMATO, "Operation failed, Please try again.");
-            emptyLblAfterDelay();
+                setLblError(Color.TOMATO, "Operation failed, Please try again.");
+                emptyLblAfterDelay();
         }
     }
 
@@ -559,8 +564,8 @@ public class HomeController {
             clearDoctorFields();
             readDoctors();
         } else {
-            setLblError(Color.TOMATO, "Operation failed, Please try again.");
-            emptyLblAfterDelay();
+            setLblErrorDoc(Color.TOMATO, "Operation failed, Please try again.");
+            emptyLblAfterDelayDoc();
         }
     }
     
@@ -579,8 +584,8 @@ public class HomeController {
             clearAdminFields();
             readAdmins();
         } else {
-            setLblError(Color.TOMATO, "Operation failed, Please try again.");
-            emptyLblAfterDelay();
+            setLblErrorAd(Color.TOMATO, "Operation failed, Please try again.");
+            emptyLblAfterDelayAd();
         }
     }
     
@@ -605,8 +610,8 @@ public class HomeController {
         if (operationState) {
             readDoctors();
         } else {
-            setLblError(Color.TOMATO, "Operation failed, Please try again.");
-            emptyLblAfterDelay();
+            setLblErrorDoc(Color.TOMATO, "Operation failed, Please try again.");
+            emptyLblAfterDelayDoc();
        }
     }
     
@@ -618,8 +623,8 @@ public class HomeController {
         if (operationState) {
             readAdmins();
         } else {
-            setLblError(Color.TOMATO, "Operation failed, Please try again.");
-            emptyLblAfterDelay();
+            setLblErrorAd(Color.TOMATO, "Operation failed, Please try again.");
+            emptyLblAfterDelayAd();
        }
     }
     
