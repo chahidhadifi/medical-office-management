@@ -85,11 +85,25 @@ public class HomeController {
     private ComboBox<String> comboSpeciality;
     @FXML
     private ComboBox<String> comboGenderDoc;
+    @FXML
+    private TextField txtEmailAd;
+    @FXML
+    private TextField txtFirstnameAd;
+    @FXML
+    private TextField txtLastnameAd;
+    @FXML
+    private TextField txtSearchAd;
+    @FXML
+    private TextField txtUsername;
+    @FXML
+    private TextField txtPassword;
     
     @FXML
     private TableView<model.Patient> tablePatients;
     @FXML
     private TableView<model.Doctor> tableDoctors;
+    @FXML
+    private TableView<model.Admin> tableAdmins;
     
     @FXML
     private TableColumn<model.Patient, String> coEmail;
@@ -115,6 +129,18 @@ public class HomeController {
     private TableColumn<model.Doctor, Integer> coIdDoc;
     @FXML
     private TableColumn<model.Doctor, String> coLastnameDoc;
+    @FXML
+    private TableColumn<model.Admin, String> coEmailAd;
+    @FXML
+    private TableColumn<model.Admin, String> coFirstnameAd;
+    @FXML
+    private TableColumn<model.Admin, String> coUsername;
+    @FXML
+    private TableColumn<model.Admin, String> coPassword;
+    @FXML
+    private TableColumn<model.Admin, Integer> coIdAd;
+    @FXML
+    private TableColumn<model.Admin, String> coLastnameAd;
     
     @FXML
     private AnchorPane PatientsView;
@@ -122,13 +148,22 @@ public class HomeController {
     private AnchorPane dashboardView;
     @FXML
     private AnchorPane doctorsView;
+    @FXML
+    private AnchorPane accountsView;
     
     @FXML
     private ComboBox<String> comboSortBy;
     @FXML
     private ComboBox<String> comboSortByDoc;
     @FXML
+    private ComboBox<String> comboSortByAd;
+    
+    @FXML
     private Label lblErrors;
+    @FXML
+    private Label lblErrorsDoc;
+    @FXML
+    private Label lblErrorsAd;
 
     @FXML
     private Button btnAccounts;
@@ -148,14 +183,17 @@ public class HomeController {
         comboBloodType.getItems().addAll("AB+", "AB-", "A+", "A-", "B+", "B-", "O+", "O-");
         comboSortBy.getItems().addAll("ID", "First name", "Last name", "Gender", "Blood Type");
         comboSortByDoc.getItems().addAll("ID", "First name", "Last name", "Gender", "Speciality");
+        comboSortByAd.getItems().addAll("ID", "First name", "Last name", "Username");
         comboSpeciality.getItems().addAll("Cardiologists", "Ophthalmologists", "Allergists", "Endocrinologists", "Anesthesiologist", "Geneticist");
         comboGenderDoc.getItems().addAll("Male", "Female");
         
         readPatients();
         readDoctors();
+        readAdmins();
         
         lblNbrPatients.setText(Integer.toString(PatientDAO.countPatients));
         lblNbrDoctors.setText(Integer.toString(DoctorDAO.countDoctors));
+        lblNbrAccounts.setText(Integer.toString(AdminDAO.countAdmins));
         
         if (!LoginController.emailCurrAdmin.isEmpty()) {
             admin = AdminDAO.readByEmail(LoginController.emailCurrAdmin);
@@ -184,18 +222,18 @@ public class HomeController {
     
     @FXML
     public void showDashboard(MouseEvent event) {
-            dashboardView.setVisible(true);
-            PatientsView.setVisible(false);
-            doctorsView.setVisible(false);
-            // accountsView.setVisible(false);
+        dashboardView.setVisible(true);
+        PatientsView.setVisible(false);
+        doctorsView.setVisible(false);
+        accountsView.setVisible(false);
     }
     
     @FXML
     public void showPatients(MouseEvent event) {
-            dashboardView.setVisible(false);
-            PatientsView.setVisible(true);
-            doctorsView.setVisible(false);
-            //accountsView.setVisible(false);
+        dashboardView.setVisible(false);
+        PatientsView.setVisible(true);
+        doctorsView.setVisible(false);
+        accountsView.setVisible(false);
     }
     
     @FXML
@@ -203,7 +241,7 @@ public class HomeController {
         dashboardView.setVisible(false);
         PatientsView.setVisible(false);
         doctorsView.setVisible(true);
-        //accountsView.setVisible(false);
+        accountsView.setVisible(false);
     }
     
     @FXML
@@ -211,7 +249,7 @@ public class HomeController {
         dashboardView.setVisible(false);
         PatientsView.setVisible(false);
         doctorsView.setVisible(false);
-        //accountsView.setVisible(true);
+        accountsView.setVisible(true);
     }
     
     
@@ -261,6 +299,32 @@ public class HomeController {
             coSpeciality.setCellValueFactory(new PropertyValueFactory<Doctor, String>("speciality"));
             tableDoctors.setItems(searchedDoctorTab);
             txtSearchDoc.setText("");
+        } else {
+            setLblError(Color.TOMATO, "Operation failed, Please try again.");
+            emptyLblAfterDelay();
+        }
+    }
+    
+    @FXML
+    public void btnSearchAd(MouseEvent event) {
+        int id = Integer.parseInt(txtSearchAd.getText());
+        ArrayList<Admin> adminList = new ArrayList<>(AdminDAO.read());
+        ArrayList<Admin> searchedAdmin = new ArrayList<>();
+        for (Admin admin : searchedAdmin) {
+            if (admin.getId() == id) {
+                searchedAdmin.add(admin);
+            }
+        }
+        if (!searchedAdmin.isEmpty()) {
+            ObservableList<Admin> searchedAdminTab = FXCollections.observableArrayList(searchedAdmin);
+            coIdAd.setCellValueFactory(new PropertyValueFactory<Admin, Integer>("id"));
+            coFirstnameAd.setCellValueFactory(new PropertyValueFactory<Admin, String>("firstname"));
+            coLastnameAd.setCellValueFactory(new PropertyValueFactory<Admin, String>("lastname"));
+            coEmailAd.setCellValueFactory(new PropertyValueFactory<Admin, String>("email"));
+            coPassword.setCellValueFactory(new PropertyValueFactory<Admin, String>("password"));
+            coUsername.setCellValueFactory(new PropertyValueFactory<Admin, String>("username"));
+            tableAdmins.setItems(searchedAdminTab);
+            txtSearchAd.setText("");
         } else {
             setLblError(Color.TOMATO, "Operation failed, Please try again.");
             emptyLblAfterDelay();
@@ -330,6 +394,35 @@ public class HomeController {
     }
     
     @FXML
+    public void btnSortAd(MouseEvent event) {
+        String sortBy = comboSortByDoc.getValue();
+        if (!sortBy.isEmpty()) {
+            ArrayList<Admin> adminList = new ArrayList<>(AdminDAO.read());
+            if (sortBy.equals("ID")) {
+                Collections.sort(adminList, Comparator.comparing(Admin::getId));
+            } else if (sortBy.equals("First name")) {
+                Collections.sort(adminList, Comparator.comparing(Admin::getFirstname));
+            } else if (sortBy.equals("Last name")) {
+                Collections.sort(adminList, Comparator.comparing(Admin::getLastname));
+            } else if (sortBy.equals("Username")) {
+                Collections.sort(adminList, Comparator.comparing(Admin::getUsername));
+            }
+            ObservableList<Admin> sortedList = FXCollections.observableArrayList(adminList);
+            coIdAd.setCellValueFactory(new PropertyValueFactory<Admin, Integer>("id"));
+            coFirstnameAd.setCellValueFactory(new PropertyValueFactory<Admin, String>("firstname"));
+            coLastnameAd.setCellValueFactory(new PropertyValueFactory<Admin, String>("lastname"));
+            coEmailAd.setCellValueFactory(new PropertyValueFactory<Admin, String>("email"));
+            coPassword.setCellValueFactory(new PropertyValueFactory<Admin, String>("password"));
+            coUsername.setCellValueFactory(new PropertyValueFactory<Admin, String>("username"));
+            tableAdmins.setItems(sortedList);
+            comboSortByAd.setValue(null);
+        } else {
+            setLblError(Color.TOMATO, "Operation failed, Please try again.");
+            emptyLblAfterDelay();
+        }
+    }
+    
+    @FXML
     public void createPatient(MouseEvent event) throws SQLException {
         String firstname = txtFirstname.getText();
         String lastname = txtLastname.getText();
@@ -338,7 +431,7 @@ public class HomeController {
         String bloodType = comboBloodType.getValue();
         if (InputValidator.isValidInput(firstname, lastname, email, gender, bloodType)) {
             Patient patient = new Patient(firstname, lastname, email, gender, bloodType);
-            Boolean operationState = dao.PatientDAO.create(patient);
+            Boolean operationState = PatientDAO.create(patient);
             if (operationState) {
                 clearPatientFields();
                 readPatients();
@@ -352,7 +445,6 @@ public class HomeController {
         }
     }
     
-    
     @FXML
     public void createDoctor(MouseEvent event) throws SQLException {
         String firstname = txtFirstnameDoc.getText();
@@ -362,10 +454,33 @@ public class HomeController {
         String speciality = comboSpeciality.getValue();
         if (InputValidator.isValidInput(firstname, lastname, email, gender, speciality)) {
             Doctor doctor = new Doctor(firstname, lastname, email, gender, speciality);
-            Boolean operationState = dao.DoctorDAO.create(doctor);
+            Boolean operationState = DoctorDAO.create(doctor);
             if (operationState) {
                 clearDoctorFields();
                 readDoctors();
+            }  else {
+                setLblError(Color.TOMATO, "Operation failed, Please try again.");
+                emptyLblAfterDelay();
+            }
+        } else {
+            setLblError(Color.TOMATO, "Operation failed, Please try again.");
+            emptyLblAfterDelay();
+        }
+    }
+    
+    @FXML
+    public void createAdmin(MouseEvent event) throws SQLException {
+        String firstname = txtFirstnameAd.getText();
+        String lastname = txtLastnameAd.getText();
+        String email = txtEmailAd.getText();
+        String password = txtPassword.getText();
+        String username = txtUsername.getText();
+        if (InputValidator.isValidInput(firstname, lastname, email, password, username)) {
+            Admin admin = new Admin(firstname, lastname, email, password, username);
+            Boolean operationState = AdminDAO.create(admin);
+            if (operationState) {
+                clearAdminFields();
+                readAdmins();
             }  else {
                 setLblError(Color.TOMATO, "Operation failed, Please try again.");
                 emptyLblAfterDelay();
@@ -396,6 +511,17 @@ public class HomeController {
         coGenderDoc.setCellValueFactory(new PropertyValueFactory<Doctor, String>("gender"));
         coSpeciality.setCellValueFactory(new PropertyValueFactory<Doctor, String>("speciality"));
         tableDoctors.setItems(doctorList);
+    }
+    
+        public void readAdmins() {
+        ObservableList<Admin> adminList = AdminDAO.read();
+        coIdAd.setCellValueFactory(new PropertyValueFactory<Admin, Integer>("id"));
+        coFirstnameAd.setCellValueFactory(new PropertyValueFactory<Admin, String>("firstname"));
+        coLastnameAd.setCellValueFactory(new PropertyValueFactory<Admin, String>("lastname"));
+        coEmailAd.setCellValueFactory(new PropertyValueFactory<Admin, String>("email"));
+        coUsername.setCellValueFactory(new PropertyValueFactory<Admin, String>("username"));
+        coPassword.setCellValueFactory(new PropertyValueFactory<Admin, String>("password"));
+        tableAdmins.setItems(adminList);
     }
     
     @FXML
@@ -439,6 +565,26 @@ public class HomeController {
     }
     
     @FXML
+    public void updateAdmin(MouseEvent event) {
+        int indexOfSelectedRow = tableAdmins.getSelectionModel().getSelectedIndex();
+        int id = Integer.parseInt(String.valueOf(tableAdmins.getItems().get(indexOfSelectedRow).getId()));
+        String firstname = txtFirstnameAd.getText();
+        String lastname = txtLastnameAd.getText();
+        String email = txtEmailAd.getText();
+        String password = txtPassword.getText();
+        String username = txtUsername.getText();
+        Admin admin = new Admin(id, firstname, lastname, email, password, username);
+        Boolean operationState = AdminDAO.update(admin);
+        if (operationState) {
+            clearAdminFields();
+            readAdmins();
+        } else {
+            setLblError(Color.TOMATO, "Operation failed, Please try again.");
+            emptyLblAfterDelay();
+        }
+    }
+    
+    @FXML
     public void deletePatient(MouseEvent event) {
         int indexOfSelectedRow = tablePatients.getSelectionModel().getSelectedIndex();
         int id = Integer.parseInt(String.valueOf(tablePatients.getItems().get(indexOfSelectedRow).getId()));
@@ -465,15 +611,40 @@ public class HomeController {
     }
     
     @FXML
+    public void deleteAdmin(MouseEvent event) {
+        int indexOfSelectedRow = tableAdmins.getSelectionModel().getSelectedIndex();
+        int id = Integer.parseInt(String.valueOf(tableAdmins.getItems().get(indexOfSelectedRow).getId()));
+        boolean operationState = AdminDAO.delete(id);
+        if (operationState) {
+            readAdmins();
+        } else {
+            setLblError(Color.TOMATO, "Operation failed, Please try again.");
+            emptyLblAfterDelay();
+       }
+    }
+    
+    @FXML
     public void printAllPatients(MouseEvent event) {
         ArrayList<Patient> listPatient = new ArrayList<>(PatientDAO.read());
         FileManager.saveAllPatients(listPatient);
+        setLblError(Color.LIMEGREEN, "Patients serialized to file: " + FileManager.filePatients.getPath());
+        emptyLblAfterDelay();
     }
 
     @FXML
     public void printAllDoctors(MouseEvent event) {
         ArrayList<Doctor> listDoctor = new ArrayList<>(DoctorDAO.read());
         FileManager.saveAllDoctors(listDoctor);
+        setLblErrorDoc(Color.LIMEGREEN, "Doctors serialized to file: " + FileManager.fileDoctors.getPath());
+        emptyLblAfterDelayDoc();
+    }
+    
+    @FXML
+    public void printAllAdmins(MouseEvent event) {
+        ArrayList<Admin> listAdmin = new ArrayList<>(AdminDAO.read());
+        FileManager.saveAllAdmins(listAdmin);
+        setLblErrorAd(Color.LIMEGREEN, "Admins serialized to file: " + FileManager.fileAdmins.getPath());
+        emptyLblAfterDelayAd();
     }
     
     public void setLblError(Color color, String text) {
@@ -481,6 +652,19 @@ public class HomeController {
        lblErrors.setText(text);
        System.out.println(text);
     }
+    
+    public void setLblErrorDoc(Color color, String text) {
+       lblErrorsDoc.setTextFill(color);
+       lblErrorsDoc.setText(text);
+       System.out.println(text);
+    }
+        
+    public void setLblErrorAd(Color color, String text) {
+       lblErrorsAd.setTextFill(color);
+       lblErrorsAd.setText(text);
+       System.out.println(text);
+    }
+    
     
     public void clearPatientFields() {
         txtFirstname.setText("");
@@ -498,9 +682,29 @@ public class HomeController {
         comboSpeciality.setValue(null);    
     }
     
+    public void clearAdminFields() {
+        txtFirstnameAd.setText("");
+        txtLastnameAd.setText("");
+        txtEmailAd.setText("");
+        txtPassword.setText("");
+        txtUsername.setText("");
+    }
+    
     public void emptyLblAfterDelay() {
         PauseTransition pause = new PauseTransition(Duration.seconds(1));
         pause.setOnFinished(event -> setLblError(Color.TRANSPARENT, ""));
+        pause.play();
+    }
+    
+    public void emptyLblAfterDelayDoc() {
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(event -> setLblErrorDoc(Color.TRANSPARENT, ""));
+        pause.play();
+    }
+    
+    public void emptyLblAfterDelayAd() {
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(event -> setLblErrorAd(Color.TRANSPARENT, ""));
         pause.play();
     }
 

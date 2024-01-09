@@ -287,7 +287,7 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="doctorsView" prefHeight="602.0" prefWidth="622.0">
+                  <AnchorPane fx:id="doctorsView" prefHeight="602.0" prefWidth="622.0" visible="false">
                      <children>
                         <Label layoutX="69.0" layoutY="23.0" stylesheets="@../css/cupertino-dark.css" text="Doctors">
                            <font>
@@ -377,7 +377,7 @@
                         </Button>
                         <ComboBox fx:id="comboSpeciality" layoutX="32.0" layoutY="513.0" prefHeight="26.0" prefWidth="230.0" promptText="Speciality" />
                         <ComboBox fx:id="comboGenderDoc" layoutX="33.0" layoutY="475.0" prefHeight="26.0" prefWidth="230.0" promptText="Gender" />
-                        <Label fx:id="lblErrors" layoutX="33.0" layoutY="558.0" prefHeight="18.0" prefWidth="304.0">
+                        <Label fx:id="lblErrorsDoc" layoutX="33.0" layoutY="558.0" prefHeight="18.0" prefWidth="304.0">
                            <font>
                               <Font name="Consolas" size="13.0" />
                            </font>
@@ -392,7 +392,119 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="accountsView" prefHeight="603.0" prefWidth="616.0" visible="false" />
+                  <AnchorPane fx:id="accountsView" layoutY="1.0" prefHeight="611.0" prefWidth="632.0">
+                     <children>
+                        <Label layoutX="69.0" layoutY="23.0" stylesheets="@../css/cupertino-dark.css" text="Accounts">
+                           <font>
+                              <Font name="Consolas" size="18.0" />
+                           </font>
+                        </Label>
+                        <FontAwesomeIconView fill="WHITE" glyphName="USERS" layoutX="28.0" layoutY="43.0" size="23" />
+                        <TableView fx:id="tableAdmins" layoutX="32.0" layoutY="103.0" prefHeight="216.0" prefWidth="558.0">
+                           <columns>
+                              <TableColumn fx:id="coIdAd" prefWidth="26.4000244140625" text="ID" />
+                              <TableColumn fx:id="coFirstnameAd" prefWidth="103.20000457763672" text="First name" />
+                              <TableColumn fx:id="coLastnameAd" prefWidth="110.39993286132812" text="Last name" />
+                              <TableColumn fx:id="coEmailAd" prefWidth="138.4000244140625" text="Email" />
+                              <TableColumn fx:id="coPassword" prefWidth="92.7999267578125" text="Password" />
+                              <TableColumn fx:id="coUsername" prefWidth="92.79995727539062" text="Username" />
+                           </columns>
+                        </TableView>
+                        <TextField fx:id="txtSearchAd" layoutX="314.0" layoutY="64.0" prefHeight="32.0" prefWidth="166.0" promptText="Search by ID">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                        </TextField>
+                        <Button layoutX="487.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#btnSearchAd" prefHeight="32.0" prefWidth="103.0" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Search">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="19" />
+                           </graphic>
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="txtFirstnameAd" layoutX="32.0" layoutY="348.0" prefHeight="30.0" prefWidth="230.0" promptText="First name">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="txtLastnameAd" layoutX="32.0" layoutY="389.0" prefHeight="30.0" prefWidth="230.0" promptText="Last name">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="txtEmailAd" layoutX="33.0" layoutY="431.0" prefHeight="30.0" prefWidth="230.0" promptText="Email">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                        </TextField>
+                        <Button layoutX="345.0" layoutY="351.0" mnemonicParsing="false" onMouseClicked="#createAdmin" prefHeight="43.0" prefWidth="230.0" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Add new admin">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS_SQUARE" size="19" />
+                           </graphic>
+                        </Button>
+                        <Button layoutX="345.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#updateAdmin" prefHeight="43.0" prefWidth="230.0" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Update admin">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="REFRESH" size="19" />
+                           </graphic>
+                        </Button>
+                        <Button layoutX="345.0" layoutY="449.0" mnemonicParsing="false" onMouseClicked="#deleteAdmin" prefHeight="43.0" prefWidth="230.0" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Delete admin">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="19" />
+                           </graphic>
+                        </Button>
+                        <Button layoutX="345.0" layoutY="497.0" mnemonicParsing="false" onMouseClicked="#printAllAdmins" prefHeight="43.0" prefWidth="230.0" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Print all admins">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="PRINT" size="19" />
+                           </graphic>
+                        </Button>
+                        <ComboBox fx:id="comboSortByAd" layoutX="33.0" layoutY="64.0" prefHeight="30.0" prefWidth="116.0" promptText="Sort by" />
+                        <Button layoutX="576.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#closeButton" stylesheets="@../css/cupertino-dark.css" text="Button">
+                           <styleClass>
+                              <String fx:value="button-icon" />
+                              <String fx:value="flat" />
+                           </styleClass>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="20" />
+                           </graphic>
+                        </Button>
+                        <Label fx:id="lblErrorsAd" layoutX="33.0" layoutY="558.0" prefHeight="18.0" prefWidth="304.0">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="158.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#btnSortAd" prefHeight="32.0" prefWidth="103.0" styleClass="accent" stylesheets="@../css/cupertino-dark.css" text="Sort">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="SORT_ALPHA_ASC" size="19" />
+                           </graphic>
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="txtPassword" layoutX="32.0" layoutY="471.0" prefHeight="30.0" prefWidth="230.0" promptText="Password">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="txtUsername" layoutX="32.0" layoutY="509.0" prefHeight="30.0" prefWidth="230.0" promptText="Username">
+                           <font>
+                              <Font name="Consolas" size="13.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </AnchorPane>
                </children></AnchorPane>
         </items>
       </SplitPane>

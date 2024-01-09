@@ -1,9 +1,11 @@
 package model;
 
+import java.io.Serializable;
+
 import utils.PersonalInformations;
 import utils.IdGenerator;
 
-public class Admin extends PersonalInformations {
+public class Admin extends PersonalInformations implements Serializable {
     
     private String username;
     private String password;
