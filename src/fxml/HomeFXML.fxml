@@ -183,7 +183,7 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="PatientsView" prefHeight="602.0" prefWidth="622.0" visible="false">
+                  <AnchorPane fx:id="PatientsView" prefHeight="602.0" prefWidth="622.0">
                      <children>
                         <Label layoutX="69.0" layoutY="23.0" stylesheets="@../css/cupertino-dark.css" text="Patients">
                            <font>
@@ -201,7 +201,7 @@
                               <TableColumn fx:id="coBloodType" prefWidth="86.40005493164062" text="Blood type" />
                           </columns>
                         </TableView>
-                        <TextField fx:id="txtSearch" layoutX="314.0" layoutY="64.0" prefHeight="32.0" prefWidth="166.0" promptText="Search by ID">
+                        <TextField fx:id="txtSearch" layoutX="314.0" layoutY="64.0" prefHeight="32.0" prefWidth="166.0" promptText="Search">
                            <font>
                               <Font name="Consolas" size="13.0" />
                            </font>
@@ -305,7 +305,7 @@
                               <TableColumn fx:id="coSpeciality" prefWidth="86.40005493164062" text="Speciality" />
                            </columns>
                         </TableView>
-                        <TextField fx:id="txtSearchDoc" layoutX="314.0" layoutY="64.0" prefHeight="32.0" prefWidth="166.0" promptText="Search by ID">
+                        <TextField fx:id="txtSearchDoc" layoutX="314.0" layoutY="64.0" prefHeight="32.0" prefWidth="166.0" promptText="Search">
                            <font>
                               <Font name="Consolas" size="13.0" />
                            </font>
@@ -392,7 +392,7 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="accountsView" layoutY="1.0" prefHeight="611.0" prefWidth="632.0">
+                  <AnchorPane fx:id="accountsView" layoutY="1.0" prefHeight="611.0" prefWidth="632.0" visible="false">
                      <children>
                         <Label layoutX="69.0" layoutY="23.0" stylesheets="@../css/cupertino-dark.css" text="Accounts">
                            <font>
@@ -410,7 +410,7 @@
                               <TableColumn fx:id="coUsername" prefWidth="92.79995727539062" text="Username" />
                            </columns>
                         </TableView>
-                        <TextField fx:id="txtSearchAd" layoutX="314.0" layoutY="64.0" prefHeight="32.0" prefWidth="166.0" promptText="Search by ID">
+                        <TextField fx:id="txtSearchAd" layoutX="314.0" layoutY="64.0" prefHeight="32.0" prefWidth="166.0" promptText="Search">
                            <font>
                               <Font name="Consolas" size="13.0" />
                            </font>

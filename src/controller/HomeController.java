@@ -256,12 +256,34 @@ public class HomeController {
     
     @FXML
     public void btnSearch(MouseEvent event) {
-        int id = Integer.parseInt(txtSearch.getText());
-        ArrayList<Patient> patientList = new ArrayList<>(PatientDAO.read());
-        ArrayList<Patient> searchedPatient = new ArrayList<>();
-        for (Patient patient : patientList) {
-            if (patient.getId() == id) {
-                searchedPatient.add(patient);
+        ArrayList<Patient> patientList = null;
+        ArrayList<Patient> searchedPatient = null;
+        String searchBy = txtSearch.getText();
+        if (InputValidator.containsNumbers(searchBy)) {
+            int id = Integer.parseInt(txtSearch.getText());
+            patientList = new ArrayList<>(PatientDAO.read());
+            searchedPatient = new ArrayList<>();
+            for (Patient patient : patientList) {
+                if (patient.getId() == id) {
+                    searchedPatient.add(patient);
+                }
+            }
+        } else {
+            String col = txtSearch.getText();
+            patientList = new ArrayList<>(PatientDAO.read());
+            searchedPatient = new ArrayList<>();
+            for (Patient patient : patientList) {
+                if (patient.getFirstname().equals(col)) {
+                    searchedPatient.add(patient);
+                } else if (patient.getLastname().equals(col)) {
+                    searchedPatient.add(patient);
+                } else if (patient.getEmail().equals(col)) {
+                    searchedPatient.add(patient);
+                } else if (patient.getGender().equals(col)) {
+                    searchedPatient.add(patient);
+                } else if (patient.getBloodType().equals(col)) {
+                    searchedPatient.add(patient);
+                }
             }
         }
         if (!searchedPatient.isEmpty()) {
@@ -282,12 +304,34 @@ public class HomeController {
  
     @FXML
     public void btnSearchDoc(MouseEvent event) {
-        int id = Integer.parseInt(txtSearchDoc.getText());
-        ArrayList<Doctor> doctorList = new ArrayList<>(DoctorDAO.read());
-        ArrayList<Doctor> searchedDoctor = new ArrayList<>();
-        for (Doctor doctor : doctorList) {
-            if (doctor.getId() == id) {
-                searchedDoctor.add(doctor);
+        ArrayList<Doctor> doctorList = null;
+        ArrayList<Doctor> searchedDoctor = null;
+        String searchBy = txtSearchDoc.getText();
+        if (InputValidator.containsNumbers(searchBy)) {
+            int id = Integer.parseInt(txtSearchDoc.getText());
+            doctorList = new ArrayList<>(DoctorDAO.read());
+            searchedDoctor = new ArrayList<>();
+            for (Doctor doctor : doctorList) {
+                if (doctor.getId() == id) {
+                    searchedDoctor.add(doctor);
+                }
+            }
+        } else {
+            String col = txtSearchDoc.getText();
+            doctorList = new ArrayList<>(DoctorDAO.read());
+            searchedDoctor = new ArrayList<>();
+            for (Doctor doctor : doctorList) {
+                if (doctor.getFirstname().equals(col)) {
+                    searchedDoctor.add(doctor);
+                } else if (doctor.getLastname().equals(col)) {
+                    searchedDoctor.add(doctor);
+                } else if (doctor.getEmail().equals(col)) {
+                    searchedDoctor.add(doctor);
+                } else if (doctor.getGender().equals(col)) {
+                    searchedDoctor.add(doctor);
+                } else if (doctor.getSpeciality().equals(col)) {
+                    searchedDoctor.add(doctor);
+                }
             }
         }
         if (!searchedDoctor.isEmpty()) {
@@ -308,12 +352,34 @@ public class HomeController {
     
     @FXML
     public void btnSearchAd(MouseEvent event) {
-        int id = Integer.parseInt(txtSearchAd.getText());
-        ArrayList<Admin> adminList = new ArrayList<>(AdminDAO.read());
-        ArrayList<Admin> searchedAdmin = new ArrayList<>();
-        for (Admin admin : searchedAdmin) {
-            if (admin.getId() == id) {
-                searchedAdmin.add(admin);
+        ArrayList<Admin> adminList = null;
+        ArrayList<Admin> searchedAdmin = null;
+        String searchBy = txtSearchAd.getText();
+        if (InputValidator.containsNumbers(searchBy)) {
+            int id = Integer.parseInt(txtSearchAd.getText());
+            adminList = new ArrayList<>(AdminDAO.read());
+            searchedAdmin = new ArrayList<>();
+            for (Admin admin : adminList) {
+                if (admin.getId() == id) {
+                    searchedAdmin.add(admin);
+                }
+            }
+        } else {
+            String col = txtSearchAd.getText();
+            adminList = new ArrayList<>(AdminDAO.read());
+            searchedAdmin = new ArrayList<>();
+            for (Admin admin : adminList) {
+                if (admin.getFirstname().equals(col)) {
+                    searchedAdmin.add(admin);
+                } else if (admin.getLastname().equals(col)) {
+                    searchedAdmin.add(admin);
+                } else if (admin.getEmail().equals(col)) {
+                    searchedAdmin.add(admin);
+                } else if (admin.getPassword().equals(col)) {
+                    searchedAdmin.add(admin);
+                }else if (admin.getUsername().equals(col)) {
+                    searchedAdmin.add(admin);
+                }
             }
         }
         if (!searchedAdmin.isEmpty()) {
@@ -396,7 +462,7 @@ public class HomeController {
     
     @FXML
     public void btnSortAd(MouseEvent event) {
-        String sortBy = comboSortByDoc.getValue();
+        String sortBy = comboSortByAd.getValue();
         if (!sortBy.isEmpty()) {
             ArrayList<Admin> adminList = new ArrayList<>(AdminDAO.read());
             if (sortBy.equals("ID")) {

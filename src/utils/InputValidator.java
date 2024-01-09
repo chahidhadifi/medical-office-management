@@ -42,4 +42,13 @@ public class InputValidator {
         return password.length() >= 5;
     }
     
+    public static boolean containsNumbers(String input) {
+        for (char c : input.toCharArray()) {
+            if (Character.isDigit(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
 }
