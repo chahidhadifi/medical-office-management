@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +37,8 @@ import model.Doctor;
 
 import utils.FileManager;
 import utils.InputValidator;
+
+import exception.RowNotSelectedException;
 
 import dao.AdminDAO;
 import dao.PatientDAO;
@@ -525,107 +526,149 @@ public class HomeController {
     }
     
     @FXML
-    public void updatePatient(MouseEvent event) {
+    public void updatePatient(MouseEvent event) throws RowNotSelectedException {
         int indexOfSelectedRow = tablePatients.getSelectionModel().getSelectedIndex();
-        int id = Integer.parseInt(String.valueOf(tablePatients.getItems().get(indexOfSelectedRow).getId()));
-        String firstname = txtFirstname.getText();
-        String lastname = txtLastname.getText();
-        String email = txtEmail.getText();
-        String gender = comboGender.getValue();
-        String bloodType = comboBloodType.getValue();
-        if (InputValidator.isValidInput(firstname, lastname, email, gender, bloodType)) {
-            Patient patient = new Patient(id, firstname, lastname, email, gender, bloodType);
-            Boolean operationState = PatientDAO.update(patient);
+        if (indexOfSelectedRow == -1) {
+            RowNotSelectedException ex = new RowNotSelectedException();
+            setLblError(Color.TOMATO, ex.getMessage());
+            emptyLblAfterDelay();
+            throw ex;
+        } else {
+            int id = Integer.parseInt(String.valueOf(tablePatients.getItems().get(indexOfSelectedRow).getId()));
+            String firstname = txtFirstname.getText();
+            String lastname = txtLastname.getText();
+            String email = txtEmail.getText();
+            String gender = comboGender.getValue();
+            String bloodType = comboBloodType.getValue();
+            if (InputValidator.isValidInput(firstname, lastname, email, gender, bloodType)) {
+                Patient patient = new Patient(id, firstname, lastname, email, gender, bloodType);
+                Boolean operationState = PatientDAO.update(patient);
+                if (operationState) {
+                    clearPatientFields();
+                    readPatients();
+                } else {
+                    setLblError(Color.TOMATO, "Operation failed, Please try again.");
+                    emptyLblAfterDelay();
+                }
+            } else {
+                    setLblError(Color.TOMATO, "Operation failed, Please try again.");
+                    emptyLblAfterDelay();
+            }
+        }
+    }
+
+    @FXML
+    public void updateDoctor(MouseEvent event) throws RowNotSelectedException {
+        int indexOfSelectedRow = tableDoctors.getSelectionModel().getSelectedIndex();
+        if (indexOfSelectedRow == -1) {
+            RowNotSelectedException ex = new RowNotSelectedException();
+            setLblErrorDoc(Color.TOMATO, ex.getMessage());
+            emptyLblAfterDelayDoc();
+            throw ex;
+        } else {
+            int id = Integer.parseInt(String.valueOf(tableDoctors.getItems().get(indexOfSelectedRow).getId()));
+            String firstname = txtFirstnameDoc.getText();
+            String lastname = txtLastnameDoc.getText();
+            String email = txtEmailDoc.getText();
+            String gender = comboGenderDoc.getValue();
+            String speciality = comboSpeciality.getValue();
+            Doctor doctor = new Doctor(id, firstname, lastname, email, gender, speciality);
+            Boolean operationState = DoctorDAO.update(doctor);
             if (operationState) {
-                clearPatientFields();
+                clearDoctorFields();
+                readDoctors();
+            } else {
+                setLblErrorDoc(Color.TOMATO, "Operation failed, Please try again.");
+                emptyLblAfterDelayDoc();
+            }
+        }
+    }
+    
+    @FXML
+    public void updateAdmin(MouseEvent event) throws RowNotSelectedException {
+        int indexOfSelectedRow = tableAdmins.getSelectionModel().getSelectedIndex();
+        if (indexOfSelectedRow == -1) {
+            RowNotSelectedException ex = new RowNotSelectedException();
+            setLblErrorAd(Color.TOMATO, ex.getMessage());
+            emptyLblAfterDelayAd();
+            throw ex;
+        } else {
+            int id = Integer.parseInt(String.valueOf(tableAdmins.getItems().get(indexOfSelectedRow).getId()));
+            String firstname = txtFirstnameAd.getText();
+            String lastname = txtLastnameAd.getText();
+            String email = txtEmailAd.getText();
+            String password = txtPassword.getText();
+            String username = txtUsername.getText();
+            Admin admin = new Admin(id, firstname, lastname, email, password, username);
+            Boolean operationState = AdminDAO.update(admin);
+            if (operationState) {
+                clearAdminFields();
+                readAdmins();
+            } else {
+                setLblErrorAd(Color.TOMATO, "Operation failed, Please try again.");
+                emptyLblAfterDelayAd();
+            }
+        }
+    }
+    
+    @FXML
+    public void deletePatient(MouseEvent event) throws RowNotSelectedException {
+        int indexOfSelectedRow = tablePatients.getSelectionModel().getSelectedIndex();
+        if (indexOfSelectedRow == -1) {
+            RowNotSelectedException ex = new RowNotSelectedException();
+            setLblError(Color.TOMATO, ex.getMessage());
+            emptyLblAfterDelay();
+            throw ex;
+        } else {
+            int id = Integer.parseInt(String.valueOf(tablePatients.getItems().get(indexOfSelectedRow).getId()));
+            boolean operationState = PatientDAO.delete(id);
+            if (operationState) {
                 readPatients();
             } else {
                 setLblError(Color.TOMATO, "Operation failed, Please try again.");
                 emptyLblAfterDelay();
+           }
+        }
+    }
+
+    @FXML
+    public void deleteDoctor(MouseEvent event) throws RowNotSelectedException {
+        int indexOfSelectedRow = tableDoctors.getSelectionModel().getSelectedIndex();
+        if (indexOfSelectedRow == -1) {
+            RowNotSelectedException ex = new RowNotSelectedException();
+            setLblErrorDoc(Color.TOMATO, ex.getMessage());
+            emptyLblAfterDelayDoc();
+            throw ex;
+        } else {
+            int id = Integer.parseInt(String.valueOf(tableDoctors.getItems().get(indexOfSelectedRow).getId()));
+            boolean operationState = DoctorDAO.delete(id);
+            if (operationState) {
+                readDoctors();
+            } else {
+                setLblErrorDoc(Color.TOMATO, "Operation failed, Please try again.");
+                emptyLblAfterDelayDoc();
+           }
+        }
+    }
+    
+    @FXML
+    public void deleteAdmin(MouseEvent event) throws RowNotSelectedException {
+        int indexOfSelectedRow = tableAdmins.getSelectionModel().getSelectedIndex();
+        if (indexOfSelectedRow == -1) {
+            RowNotSelectedException ex = new RowNotSelectedException();
+            setLblErrorAd(Color.TOMATO, ex.getMessage());
+            emptyLblAfterDelayAd();
+            throw ex;
+        } else {
+            int id = Integer.parseInt(String.valueOf(tableAdmins.getItems().get(indexOfSelectedRow).getId()));
+            boolean operationState = AdminDAO.delete(id);
+            if (operationState) {
+                readAdmins();
+            } else {
+                setLblErrorAd(Color.TOMATO, "Operation failed, Please try again.");
+                emptyLblAfterDelayAd();
             }
-        } else {
-                setLblError(Color.TOMATO, "Operation failed, Please try again.");
-                emptyLblAfterDelay();
         }
-    }
-
-    @FXML
-    public void updateDoctor(MouseEvent event) {
-        int indexOfSelectedRow = tableDoctors.getSelectionModel().getSelectedIndex();
-        int id = Integer.parseInt(String.valueOf(tableDoctors.getItems().get(indexOfSelectedRow).getId()));
-        String firstname = txtFirstnameDoc.getText();
-        String lastname = txtLastnameDoc.getText();
-        String email = txtEmailDoc.getText();
-        String gender = comboGenderDoc.getValue();
-        String speciality = comboSpeciality.getValue();
-        Doctor doctor = new Doctor(id, firstname, lastname, email, gender, speciality);
-        Boolean operationState = DoctorDAO.update(doctor);
-        if (operationState) {
-            clearDoctorFields();
-            readDoctors();
-        } else {
-            setLblErrorDoc(Color.TOMATO, "Operation failed, Please try again.");
-            emptyLblAfterDelayDoc();
-        }
-    }
-    
-    @FXML
-    public void updateAdmin(MouseEvent event) {
-        int indexOfSelectedRow = tableAdmins.getSelectionModel().getSelectedIndex();
-        int id = Integer.parseInt(String.valueOf(tableAdmins.getItems().get(indexOfSelectedRow).getId()));
-        String firstname = txtFirstnameAd.getText();
-        String lastname = txtLastnameAd.getText();
-        String email = txtEmailAd.getText();
-        String password = txtPassword.getText();
-        String username = txtUsername.getText();
-        Admin admin = new Admin(id, firstname, lastname, email, password, username);
-        Boolean operationState = AdminDAO.update(admin);
-        if (operationState) {
-            clearAdminFields();
-            readAdmins();
-        } else {
-            setLblErrorAd(Color.TOMATO, "Operation failed, Please try again.");
-            emptyLblAfterDelayAd();
-        }
-    }
-    
-    @FXML
-    public void deletePatient(MouseEvent event) {
-        int indexOfSelectedRow = tablePatients.getSelectionModel().getSelectedIndex();
-        int id = Integer.parseInt(String.valueOf(tablePatients.getItems().get(indexOfSelectedRow).getId()));
-        boolean operationState = PatientDAO.delete(id);
-        if (operationState) {
-            readPatients();
-        } else {
-            setLblError(Color.TOMATO, "Operation failed, Please try again.");
-            emptyLblAfterDelay();
-       }
-    }
-
-    @FXML
-    public void deleteDoctor(MouseEvent event) {
-        int indexOfSelectedRow = tableDoctors.getSelectionModel().getSelectedIndex();
-        int id = Integer.parseInt(String.valueOf(tableDoctors.getItems().get(indexOfSelectedRow).getId()));
-        boolean operationState = DoctorDAO.delete(id);
-        if (operationState) {
-            readDoctors();
-        } else {
-            setLblErrorDoc(Color.TOMATO, "Operation failed, Please try again.");
-            emptyLblAfterDelayDoc();
-       }
-    }
-    
-    @FXML
-    public void deleteAdmin(MouseEvent event) {
-        int indexOfSelectedRow = tableAdmins.getSelectionModel().getSelectedIndex();
-        int id = Integer.parseInt(String.valueOf(tableAdmins.getItems().get(indexOfSelectedRow).getId()));
-        boolean operationState = AdminDAO.delete(id);
-        if (operationState) {
-            readAdmins();
-        } else {
-            setLblErrorAd(Color.TOMATO, "Operation failed, Please try again.");
-            emptyLblAfterDelayAd();
-       }
     }
     
     @FXML
